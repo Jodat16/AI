@@ -1,6 +1,6 @@
 #alpha beta pruning
 MAX, MIN = 1000, -1000
-def minimax(depth, nodeIndex, maximizingPlayer,
+def ABprune(depth, nodeIndex, maximizingPlayer,
             values, alpha, beta):
     if depth == 3:
         return values[nodeIndex]
@@ -12,7 +12,7 @@ def minimax(depth, nodeIndex, maximizingPlayer,
         # Recur for left and right children
         for i in range(0, 2):
              
-            val = minimax(depth + 1, nodeIndex * 2 + i,
+            val = ABprune(depth + 1, nodeIndex * 2 + i,
                           False, values, alpha, beta)
             best = max(best, val)
             alpha = max(alpha, best)
@@ -27,7 +27,7 @@ def minimax(depth, nodeIndex, maximizingPlayer,
         best = MAX
         for i in range(0, 2):
           
-            val = minimax(depth + 1, nodeIndex * 2 + i,
+            val = ABprune(depth + 1, nodeIndex * 2 + i,
                             True, values, alpha, beta)
             best = min(best, val)
             beta = min(beta, best)
@@ -40,4 +40,4 @@ def minimax(depth, nodeIndex, maximizingPlayer,
       
 
 values = [2, 4, 6, 8, 1, 2, 10, 12] 
-print("The optimal value is :", minimax(0, 0, True, values, MIN, MAX))
+print("The optimal value is :", ABprune(0, 0, True, values, MIN, MAX))
